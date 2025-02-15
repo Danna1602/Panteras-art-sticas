@@ -13,3 +13,7 @@ Repositorio
 //Rol:Diseñador de videojuegos
 //Ubicación: Altamira-Huila
 
+#Karen vanessa Fajardo Perdomo
+//Perfil: Estudiante de ingeniería multimedia.
+//Rol:Probador de juegos de control de calidad
+//Ubicación: Timana-Huila
