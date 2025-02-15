@@ -18,3 +18,9 @@ Repositorio
 //Perfil: Tecnico en Multimedia - Estudiante de ingeniería multimedia.
 //Rol:Diseñador Narrativo.
 //Ubicación: Pitalito-Huila.
+
+
+#Karen vanessa Fajardo Perdomo
+//Perfil: Estudiante de ingeniería multimedia.
+//Rol:Probador de juegos de control de calidad
+//Ubicación: Timana-Huila
