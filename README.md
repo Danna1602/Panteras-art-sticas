@@ -13,3 +13,8 @@ Repositorio
 //Rol:Diseñador de videojuegos
 //Ubicación: Altamira-Huila
 
+
+#Andres Felipe Vargas Jimenez
+//Perfil: Tecnico en Multimedia - Estudiante de ingeniería multimedia.
+//Rol:Diseñador Narrativo.
+//Ubicación: Pitalito-Huila.
