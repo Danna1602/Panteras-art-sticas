@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Base path: 'D:/aplicaciones/6000.0.26f1/Editor/Data', plugins path 'D:/aplicaciones/6000.0.26f1/Editor/Data/PlaybackEngines'
+=======
+Base path: 'L:/6000.0.27f1/Editor/Data', plugins path 'L:/6000.0.27f1/Editor/Data/PlaybackEngines'
+>>>>>>> 4b6022ee2f7dccf03a67a605e25e4c567208d2f7
 Cmd: initializeCompiler
 
 Unhandled exception: Protocol error - failed to read magic number. Error code 0x80000004 (Not connected). (transferred 0/4)
