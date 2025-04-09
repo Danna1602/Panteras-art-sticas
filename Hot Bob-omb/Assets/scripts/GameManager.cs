@@ -101,19 +101,19 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ProcesarExplosion()
     {
-        // 1. Sonido de explosión (inmediato al iniciar)
-        var soundManager = FindObjectOfType<GameSoundManager>();
-        if (soundManager != null) soundManager.ReproducirExplosion();
+        // Guardar referencia al portador que explotará
+        GameObject portadorExplotado = portadorBombaActual;
+        portadorBombaActual = null; // Limpiar inmediatamente para evitar múltiples explosiones
 
-        // 2. Ejecutar animación de explosión de la bomba
+        // 1. Ejecutar animación de explosión de la bomba
         bombaAnimController.ForzarExplosion();
 
-        // 3. Ejecutar animación de muerte del portador actual
-        if (portadorBombaActual != null && portadorBombaActual.activeSelf)
+        // 2. Ejecutar animación de muerte SOLO del portador actual
+        if (portadorExplotado != null && portadorExplotado.activeSelf)
         {
-            var animController1 = portadorBombaActual.GetComponent<Personaje1_0AnimatorController>();
-            var animController2 = portadorBombaActual.GetComponent<Personaje2_0AnimatorController>();
-            var animController3 = portadorBombaActual.GetComponent<Personaje3_0AnimatorController>();
+            var animController1 = portadorExplotado.GetComponent<Personaje1_0AnimatorController>();
+            var animController2 = portadorExplotado.GetComponent<Personaje2_0AnimatorController>();
+            var animController3 = portadorExplotado.GetComponent<Personaje3_0AnimatorController>();
 
             if (animController1 != null)
                 animController1.EjecutarAnimacionMuerte();
@@ -123,18 +123,12 @@ public class GameManager : MonoBehaviour
                 animController3.EjecutarAnimacionMuerte();
         }
 
-        yield return new WaitForSeconds(1f); // Esperar que terminen animaciones
+        yield return new WaitForSeconds(1f);
 
-        // 4. Desactivar objetos
+        // 3. Desactivar bomba
         bomba.SetActive(false);
 
-        if (portadorBombaActual != null)
-        {
-            portadorBombaActual.SetActive(false);
-            portadorBombaActual = null;
-        }
-
-        // 5. Manejar lógica post-explosión
+        // 4. Manejar transición de fase
         int jugadoresVivos = ContarPersonajesActivos();
 
         if (jugadoresVivos <= 1)
@@ -155,10 +149,7 @@ public class GameManager : MonoBehaviour
         {
             TerminarJuego(ObtenerPersonajeActivo());
         }
-    }
-
-
-    // Métodos auxiliares para mejor organización
+    } // Métodos auxiliares para mejor organización
     private void IniciarRondaFinal()
     {
         rondaFinal = true;
@@ -208,8 +199,7 @@ public class GameManager : MonoBehaviour
         portadorBombaActual = personajeObjetivo;
 
         var soundManager = FindObjectOfType<GameSoundManager>();
-        if (soundManager != null) soundManager.ReproducirSonidoLanzar();
-
+        if (soundManager != null) soundManager.ReproducirSonidoLanzar(); // Punto y coma añadido aquí
 
         StopAllCoroutines();
         StartCoroutine(ContadorBomba());
@@ -283,8 +273,7 @@ public class GameManager : MonoBehaviour
     {
         if (portadorBombaActual != null)
         {
-            var soundManager = FindObjectOfType<GameSoundManager>();
-            if (soundManager != null) soundManager.ReproducirExplosion();
+
 
             var animController1 = portadorBombaActual.GetComponent<Personaje1_0AnimatorController>();
             var animController2 = portadorBombaActual.GetComponent<Personaje2_0AnimatorController>();
