@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\BombMovement.cs" />
+    <Compile Include="Assets\scripts\GameSoundManager.cs" />
     <Compile Include="Assets\scripts\Personaje1_0AnimatorController.cs" />
     <Compile Include="Assets\scripts\BombaAnimatorController.cs" />
     <Compile Include="Assets\scripts\Personaje2_0AnimatorController.cs" />

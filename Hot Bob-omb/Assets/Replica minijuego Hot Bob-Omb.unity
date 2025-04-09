@@ -476,6 +476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599476632}
   - component: {fileID: 599476631}
+  - component: {fileID: 599476633}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -521,6 +522,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &599476633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599476630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b45e63a8b404b244b311ae6f55763d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 599476631}
+  sonidoTomarBomba: {fileID: 8300000, guid: 6bf5b562b020fdb4ba7325c27c3e2185, type: 3}
+  sonidoLanzarBomba: {fileID: 8300000, guid: f0147ef7183025c4eac40df91123645f, type: 3}
+  sonidoExplosion: {fileID: 8300000, guid: c2713c8b20cb983439c856c97934292e, type: 3}
+  sonidoVictoria: {fileID: 8300000, guid: 12e7849693ff5b949b8bd447de00e1df, type: 3}
+  efectosSource: {fileID: 0}
+  musicaSource: {fileID: 0}
 --- !u!1 &654380390
 GameObject:
   m_ObjectHideFlags: 0
