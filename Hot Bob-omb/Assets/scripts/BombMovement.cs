@@ -12,6 +12,7 @@ public class BombMovement : MonoBehaviour
     private Vector3 posicionDestino;
     private float duracionActual;
     private float tiempoInicio;
+    public Vector3 UltimaDireccion { get; private set; }
 
     public bool EstaEnMovimiento()
     {
@@ -24,6 +25,7 @@ public class BombMovement : MonoBehaviour
 
         posicionInicial = transform.position;
         posicionDestino = destino;
+        UltimaDireccion = (destino - posicionInicial).normalized; // Guarda la dirección
         tiempoInicio = Time.time;
         duracionActual = duracionBase - incrementoVelocidad;
         estaEnMovimiento = true;

@@ -1,23 +1,40 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Configuración del Juego")]
     public GameObject[] personajes;
     public GameObject bomba;
     public float tiempoRondaInicial = 60f;
     public float tiempoRondaFinal = 30f;
 
-    private GameObject portadorBombaActual;
-    private float temporizador;
-    private bool rondaFinal = false;
-    private bool juegoTerminado = false;
+    [Header("Estado del Juego")]
+    [SerializeField] private GameObject portadorBombaActual;
+    [SerializeField] private float temporizador;
+    [SerializeField] private bool rondaFinal = false;
+    [SerializeField] private bool juegoTerminado = false;
+
     private float tiempoInicioJuego;
     private bool velocidadAumentada = false;
+    private BombaAnimatorController bombaAnimController;
 
     void Start()
     {
+        if (bomba == null)
+        {
+            Debug.LogError("No se ha asignado el objeto bomba en el Inspector");
+            return;
+        }
+
+        bombaAnimController = bomba.GetComponent<BombaAnimatorController>();
+        if (bombaAnimController == null)
+        {
+            Debug.LogError("No se encontró el componente BombaAnimatorController en la bomba");
+            return;
+        }
+
         IniciarJuego();
     }
 
@@ -29,8 +46,27 @@ public class GameManager : MonoBehaviour
         portadorBombaActual = null;
         rondaFinal = false;
         juegoTerminado = false;
+        Time.timeScale = 1f;
 
+        foreach (var personaje in personajes)
+        {
+            if (personaje != null)
+            {
+                personaje.SetActive(true);
+            }
+        }
+
+        ActivarBomba();
         StartCoroutine(EmpezarRonda());
+    }
+
+    void ActivarBomba()
+    {
+        bomba.SetActive(true);
+        if (bombaAnimController != null)
+        {
+            bombaAnimController.ReiniciarAnimacion();
+        }
     }
 
     IEnumerator EmpezarRonda()
@@ -42,36 +78,108 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (juegoTerminado || portadorBombaActual == null) return;
+        if (juegoTerminado) return;
 
         if (!velocidadAumentada && Time.time - tiempoInicioJuego > 20f)
         {
             velocidadAumentada = true;
+            Debug.Log("Velocidad de la bomba aumentada!");
         }
 
-        temporizador -= Time.deltaTime;
-
-        if (temporizador <= 0f)
+        // Solo decrementar temporizador si hay portador activo
+        if (portadorBombaActual != null)
         {
-            ExplotarPortadorActual();
+            temporizador -= Time.deltaTime;
 
-            if (!rondaFinal && ContarPersonajesActivos() > 1)
+            if (temporizador <= 0f)
             {
-                rondaFinal = true;
-                tiempoInicioJuego = Time.time;
-                velocidadAumentada = false;
-                StartCoroutine(EmpezarRonda());
-            }
-            else
-            {
-                TerminarJuego(ObtenerPersonajeActivo());
+                StartCoroutine(ProcesarExplosion());
             }
         }
     }
 
+
+    IEnumerator ProcesarExplosion()
+    {
+        // Guardar referencia al portador que explotará
+        GameObject portadorExplotado = portadorBombaActual;
+        portadorBombaActual = null; // Limpiar inmediatamente para evitar múltiples explosiones
+
+        // 1. Ejecutar animación de explosión de la bomba
+        bombaAnimController.ForzarExplosion();
+
+        // 2. Ejecutar animación de muerte SOLO del portador actual
+        if (portadorExplotado != null && portadorExplotado.activeSelf)
+        {
+            var animController1 = portadorExplotado.GetComponent<Personaje1_0AnimatorController>();
+            var animController2 = portadorExplotado.GetComponent<Personaje2_0AnimatorController>();
+            var animController3 = portadorExplotado.GetComponent<Personaje3_0AnimatorController>();
+
+            if (animController1 != null)
+                animController1.EjecutarAnimacionMuerte();
+            else if (animController2 != null)
+                animController2.EjecutarAnimacionMuerte();
+            else if (animController3 != null)
+                animController3.EjecutarAnimacionMuerte();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        // 3. Desactivar bomba
+        bomba.SetActive(false);
+
+        // 4. Manejar transición de fase
+        int jugadoresVivos = ContarPersonajesActivos();
+
+        if (jugadoresVivos <= 1)
+        {
+            TerminarJuego(ObtenerPersonajeActivo());
+            yield break;
+        }
+
+        if (!rondaFinal && jugadoresVivos == 2)
+        {
+            IniciarRondaFinal();
+        }
+        else if (!rondaFinal)
+        {
+            ReiniciarBomba();
+        }
+        else
+        {
+            TerminarJuego(ObtenerPersonajeActivo());
+        }
+    }
+
+    // Métodos auxiliares para mejor organización
+    private void IniciarRondaFinal()
+    {
+        rondaFinal = true;
+        tiempoInicioJuego = Time.time;
+        velocidadAumentada = false;
+        temporizador = tiempoRondaFinal;
+        bombaAnimController.EstablecerSegundaFase();
+
+        // Asegurar que tenemos exactamente 2 jugadores activos
+        int jugadoresActivos = ContarPersonajesActivos();
+        if (jugadoresActivos > 2)
+        {
+            Debug.LogError("¡Error! No debería haber más de 2 jugadores al iniciar ronda final");
+        }
+
+        ActivarBomba();
+        AsignarBombaAleatoriamente();
+    }
+
+    private void ReiniciarBomba()
+    {
+        ActivarBomba();
+        AsignarBombaAleatoriamente();
+    }
+
     public void IntentarPasarBomba(GameObject personajeObjetivo)
     {
-        if (personajeObjetivo == null || portadorBombaActual == null) return;
+        if (juegoTerminado || personajeObjetivo == null || portadorBombaActual == null) return;
         if (personajeObjetivo == portadorBombaActual) return;
         if (!personajeObjetivo.activeSelf) return;
 
@@ -104,10 +212,17 @@ public class GameManager : MonoBehaviour
                 personajesActivos.Add(personaje);
         }
 
-        if (personajesActivos.Count == 0) return;
+        if (personajesActivos.Count == 0)
+        {
+            TerminarJuego(null);
+            return;
+        }
 
         int indiceAleatorio = Random.Range(0, personajesActivos.Count);
         portadorBombaActual = personajesActivos[indiceAleatorio];
+
+        // Reiniciar el temporizador cuando se asigna nueva bomba
+        temporizador = rondaFinal ? tiempoRondaFinal : tiempoRondaInicial;
 
         BombMovement movimiento = bomba.GetComponent<BombMovement>();
         if (movimiento != null)
@@ -119,6 +234,15 @@ public class GameManager : MonoBehaviour
             bomba.transform.position = portadorBombaActual.transform.position;
         }
 
+        if (bomba.activeSelf)
+        {
+            bombaAnimController.ReiniciarAnimacion();
+        }
+        else
+        {
+            ActivarBomba();
+        }
+
         StartCoroutine(ContadorBomba());
     }
 
@@ -126,18 +250,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        if (portadorBombaActual != null && bomba.transform.position == portadorBombaActual.transform.position)
+        if (portadorBombaActual != null && bomba.activeSelf &&
+            Vector3.Distance(bomba.transform.position, portadorBombaActual.transform.position) < 0.1f)
         {
-            ExplotarPortadorActual();
-
-            if (ContarPersonajesActivos() == 1)
-            {
-                TerminarJuego(ObtenerPersonajeActivo());
-            }
-            else
-            {
-                AsignarBombaAleatoriamente();
-            }
+            yield return StartCoroutine(ProcesarExplosion());
         }
     }
 
@@ -145,9 +261,60 @@ public class GameManager : MonoBehaviour
     {
         if (portadorBombaActual != null)
         {
-            portadorBombaActual.SetActive(false);
+            var animController1 = portadorBombaActual.GetComponent<Personaje1_0AnimatorController>();
+            var animController2 = portadorBombaActual.GetComponent<Personaje2_0AnimatorController>();
+            var animController3 = portadorBombaActual.GetComponent<Personaje3_0AnimatorController>();
+
+            if (animController1 != null)
+            {
+                animController1.EjecutarAnimacionMuerte();
+            }
+            else if (animController2 != null)
+            {
+                animController2.EjecutarAnimacionMuerte();
+            }
+            else if (animController3 != null)
+            {
+                animController3.EjecutarAnimacionMuerte();
+            }
+            else
+            {
+                portadorBombaActual.SetActive(false);
+            }
+
             portadorBombaActual = null;
         }
+    }
+
+    void VerificarFinDelJuego()
+    {
+        int jugadoresRestantes = ContarPersonajesActivos();
+
+        if (jugadoresRestantes <= 1)
+        {
+            TerminarJuego(ObtenerPersonajeActivo());
+        }
+        else if (!rondaFinal && jugadoresRestantes == 2)
+        {
+            // Entrar en ronda final
+            rondaFinal = true;
+            tiempoInicioJuego = Time.time;
+            velocidadAumentada = false;
+            ActivarBomba();
+            StartCoroutine(EmpezarRonda());
+        }
+        else if (!rondaFinal)
+        {
+            // Continuar juego normal
+            ActivarBomba();
+            AsignarBombaAleatoriamente();
+        }
+        // En ronda final no hacemos nada más (el juego termina)
+    }
+
+    public GameObject ObtenerPortadorBombaActual()
+    {
+        return portadorBombaActual;
     }
 
     GameObject ObtenerPersonajeActivo()
@@ -162,9 +329,20 @@ public class GameManager : MonoBehaviour
 
     void TerminarJuego(GameObject ganador)
     {
-        if (ganador == null) return;
+        if (juegoTerminado) return;
 
         juegoTerminado = true;
+        StopAllCoroutines();
+
+        if (ganador != null)
+        {
+            Debug.Log($"¡Juego terminado! Ganador: {ganador.name}");
+        }
+        else
+        {
+            Debug.Log("¡El juego terminó sin ganador!");
+        }
+
         Time.timeScale = 0f;
     }
 }
