@@ -1,9 +1,16 @@
+# Archivos generados por Unity
 [Ll]ibrary/
 [Tt]emp/
+[Oo]bj/
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+[Mm]emoryCaptures/
+
+# Configuración local de usuario
 UserSettings/
+.vscode/
+.idea/
 *.csproj
 *.unityproj
 *.sln
@@ -15,9 +22,33 @@ UserSettings/
 *.booproj
 *.svd
 *.pdb
-*.opendb
-*.VC.db
-*.pidb.meta
-*.dwlt
-*.dwlt.meta
+*.mdb
+
+# Archivos de cache
+*.apk
+*.aab
+*.unitypackage
+
+# Sistema de colisiones y locks de Unity
+sysinfo.txt
+
+# Visual Studio Code settings
+.vscode/
+
+# Archivos de Mac
+.DS_Store
+
+# Archivos de Windows
+Thumbs.db
+desktop.ini
+
+# Otros
 *.log
+
+# Evitar ignorar los .meta (muy importante)
+!*.meta
+
+# Guardar escenas, prefabs, assets y scripts
+Assets/
+ProjectSettings/
+Packages/
