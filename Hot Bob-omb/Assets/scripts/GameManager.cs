@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void IniciarJuego()
     {
+
         tiempoInicioJuego = Time.time;
         velocidadAumentada = false;
         bomba.transform.position = Vector3.zero;
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour
     } // Métodos auxiliares para mejor organización
     private void IniciarRondaFinal()
     {
+        FindObjectOfType<GameSoundManager>().CambiarAFaseFinal();
         rondaFinal = true;
         tiempoInicioJuego = Time.time;
         velocidadAumentada = false;
@@ -178,6 +180,7 @@ public class GameManager : MonoBehaviour
 
         ActivarBomba();
         AsignarBombaAleatoriamente();
+        
     }
 
     private void ReiniciarBomba()
@@ -358,5 +361,7 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+
+        FindObjectOfType<GameGUI>().MostrarGanador();
     }
 }
