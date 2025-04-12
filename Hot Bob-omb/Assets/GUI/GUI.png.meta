@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: b77e76f4f6b6a8945b0672ac07628d15
+guid: 24fa47088c8935a42836a1d4fa6d055d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1362175667586806468
-    second: nube_0
+      213: -7151958888795693489
+    second: GUI_0
   - first:
-      213: 8767366967790089483
-    second: nube_1
-  - first:
-      213: -3766294975135272431
-    second: nube_2
-  - first:
-      213: -3676159438489072120
-    second: nube_3
+      213: 8105364098890919055
+    second: GUI_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nube_0
+      name: GUI_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 55
-        width: 114
-        height: 89
+        x: 0
+        y: 2767
+        width: 3228
+        height: 1023
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4c231347d8b67e210800000000000000
-      internalID: 1362175667586806468
+      spriteID: f4e922988432fbc90800000000000000
+      internalID: -7151958888795693489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nube_1
+      name: GUI_1
       rect:
         serializedVersion: 2
-        x: 157
-        y: 62
-        width: 122
-        height: 81
+        x: 272
+        y: 0
+        width: 2147
+        height: 2084
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,52 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b053f924ec1fba970800000000000000
-      internalID: 8767366967790089483
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nube_2
-      rect:
-        serializedVersion: 2
-        x: 294
-        y: 62
-        width: 136
-        height: 75
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 11239bfbcae6bbbc0800000000000000
-      internalID: -3766294975135272431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nube_3
-      rect:
-        serializedVersion: 2
-        x: 441
-        y: 62
-        width: 147
-        height: 87
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 80ec823c778abfcc0800000000000000
-      internalID: -3676159438489072120
+      spriteID: f8ce89134b90c7070800000000000000
+      internalID: 8105364098890919055
       vertices: []
       indices: 
       edges: []
