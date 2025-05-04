@@ -13,6 +13,7 @@ public class Personaje3_0AnimatorController : MonoBehaviour
     public RuntimeAnimatorController LanzarBomba3Izquierda;
     public RuntimeAnimatorController LanzarBomba3Derecha;
     public RuntimeAnimatorController ExplosionPersonaje3;
+    public RuntimeAnimatorController VictoriaPersonaje3; // Nuevo
 
     [Header("Duración Animaciones")]
     public float duracionTomar = 2f;
@@ -128,6 +129,18 @@ public class Personaje3_0AnimatorController : MonoBehaviour
         }
     }
 
+    // Nuevo método para animación de victoria
+    public void EjecutarAnimacionVictoria()
+    {
+        if (_isDead || !VerificarComponentes(VictoriaPersonaje3, "VictoriaPersonaje3")) return;
+
+        if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+
+        _animator.runtimeAnimatorController = VictoriaPersonaje3;
+        _animator.speed = 1f;
+        _animator.Play("VictoriaPersonaje3", 0, 0f);
+    }
+
     IEnumerator ResetAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -145,5 +158,22 @@ public class Personaje3_0AnimatorController : MonoBehaviour
         if (_isDead || _animator == null || Posicion3 == null) return;
         _animator.runtimeAnimatorController = Posicion3;
         _animator.speed = 1f;
+    }
+
+    bool VerificarComponentes(RuntimeAnimatorController controller, string nombre)
+    {
+        if (_animator == null)
+        {
+            Debug.LogError("Animator no asignado");
+            return false;
+        }
+
+        if (controller == null)
+        {
+            Debug.LogError($"Falta asignar {nombre} en Inspector");
+            return false;
+        }
+
+        return true;
     }
 }

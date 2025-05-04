@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202199641}
   - component: {fileID: 202199640}
+  - component: {fileID: 202199642}
   m_Layer: 0
   m_Name: nube_0
   m_TagString: Untagged
@@ -206,6 +207,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202199642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202199639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee9283940727694b86f98af75f48030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 1.89
+  amplitud: 0.1
+  velocidadParpadeo: 1
+  minOpacidad: 0.7
 --- !u!1 &348092998
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 348093000}
   - component: {fileID: 348092999}
+  - component: {fileID: 348093001}
   m_Layer: 0
   m_Name: nube_1
   m_TagString: Untagged
@@ -293,6 +311,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &348093001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348092998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee9283940727694b86f98af75f48030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 1.59
+  amplitud: 0.1
+  velocidadParpadeo: 1
+  minOpacidad: 0.7
 --- !u!1 &448318650
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +649,7 @@ MonoBehaviour:
   TomarBomba1: {fileID: 9100000, guid: 3b7c5857c18eb8b48b7fa4a60edee1f9, type: 2}
   LanzarBombaIDLE: {fileID: 9100000, guid: 95f1ee750f9e91a46b74d2da53f48f95, type: 2}
   ExplosionPersonaje1: {fileID: 9100000, guid: 7ca2b1e83d967fa43895fc9744d0ad2f, type: 2}
+  VictoriaPersonaje1: {fileID: 9100000, guid: 66a403fc8c6148e42ab4c8b3a33e2a00, type: 2}
   duracionTomar: 0.4
   duracionLanzar: 0.2
   duracionExplosion: 1
@@ -1197,7 +1232,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -1253,7 +1288,7 @@ MonoBehaviour:
   colorNormal: {r: 1, g: 1, b: 1, a: 1}
   colorAlerta: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   colorPeligro: {r: 1, g: 0, b: 0, a: 1}
-  "tama\xF1oFuenteNombres": 2.33
+  "tama\u0144oFuenteNombres": 3
   alturaNombres: 1.02
   colorNombreNormal: {r: 0, g: 1, b: 0.10163808, a: 1}
   colorNombrePortador: {r: 1, g: 0, b: 0, a: 1}
@@ -1261,6 +1296,10 @@ MonoBehaviour:
   posicionTiempo: {x: -135.9, y: -198.9}
   posicionNombres: {x: 30.3, y: 104.7}
   grosorFuenteFase: 0.1
+  spriteBoton: {fileID: 547216540781403935, guid: cc46966c059611c4198daf257184a9f1, type: 3}
+  posicionBoton: {x: 0, y: -154.3}
+  tamanoBoton: {x: 200, y: 100}
+  escalaAlPresionar: 0.95
 --- !u!1 &1350597220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,10 +1397,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1359251143}
   - component: {fileID: 1359251142}
-  - component: {fileID: 1359251145}
   - component: {fileID: 1359251144}
   - component: {fileID: 1359251147}
   - component: {fileID: 1359251146}
+  - component: {fileID: 1359251148}
+  - component: {fileID: 1359251149}
   m_Layer: 0
   m_Name: personaje 2_2
   m_TagString: Clickable
@@ -1485,18 +1525,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.6225001, y: 1.6600001}
   m_EdgeRadius: 0
---- !u!114 &1359251145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359251141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba062eb0e14d6a46b5559189ccb69ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1359251146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,6 +1543,7 @@ MonoBehaviour:
   TomarBomba2: {fileID: 9100000, guid: a17ff9f7cd59c49408f5557f113bcfd5, type: 2}
   LanzarBomba2: {fileID: 9100000, guid: 057041748285e0f478fed6b2949f0d46, type: 2}
   ExplosionPersonaje2: {fileID: 9100000, guid: 1ed524a8723da3b4c9517812294dec00, type: 2}
+  VictoriaPersonaje2: {fileID: 9100000, guid: f4f53fc86fb850b418f2b8b54cf6cf33, type: 2}
   duracionTomar: 0.4
   duracionLanzar: 0.2
   duracionExplosion: 1
@@ -1540,6 +1569,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1359251148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359251141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda535d9218c263418b74fdf8571d215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoMinReaccion: 0.5
+  tiempoMaxReaccion: 2
+  probabilidadPasarBomba: 0.9
+  tiempoMinFinal: 0.2
+  tiempoMaxFinal: 0.5
+  probabilidadPasarBombaFinal: 0.98
+--- !u!114 &1359251149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359251141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba062eb0e14d6a46b5559189ccb69ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469599793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,10 +1949,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1688588827}
   - component: {fileID: 1688588826}
-  - component: {fileID: 1688588829}
   - component: {fileID: 1688588828}
   - component: {fileID: 1688588830}
   - component: {fileID: 1688588831}
+  - component: {fileID: 1688588832}
+  - component: {fileID: 1688588833}
   m_Layer: 0
   m_Name: personaje 3_0
   m_TagString: Clickable
@@ -2017,18 +2077,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.6225001, y: 1.6600001}
   m_EdgeRadius: 0
---- !u!114 &1688588829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688588825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba062eb0e14d6a46b5559189ccb69ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1688588830
 Animator:
   serializedVersion: 7
@@ -2039,7 +2087,7 @@ Animator:
   m_GameObject: {fileID: 1688588825}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7d51fe99fbc35041adee9d3f7b8a006, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2072,9 +2120,40 @@ MonoBehaviour:
   LanzarBomba3Izquierda: {fileID: 9100000, guid: 9799e8039ec7c8140a179cf069969074, type: 2}
   LanzarBomba3Derecha: {fileID: 9100000, guid: b201648168868de4481fca139a00f08b, type: 2}
   ExplosionPersonaje3: {fileID: 9100000, guid: f83813792c0be5340ba60c0711ab1714, type: 2}
+  VictoriaPersonaje3: {fileID: 9100000, guid: 8d88ced78ea425140a8eb44bd35e1da7, type: 2}
   duracionTomar: 0.4
   duracionLanzar: 0.25
   duracionExplosion: 1
+--- !u!114 &1688588832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688588825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda535d9218c263418b74fdf8571d215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoMinReaccion: 0.5
+  tiempoMaxReaccion: 2
+  probabilidadPasarBomba: 0.9
+  tiempoMinFinal: 0.2
+  tiempoMaxFinal: 0.5
+  probabilidadPasarBombaFinal: 0.98
+--- !u!114 &1688588833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688588825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba062eb0e14d6a46b5559189ccb69ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1702850010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2172,6 +2251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1795056533}
   - component: {fileID: 1795056532}
+  - component: {fileID: 1795056534}
   m_Layer: 0
   m_Name: nube_3
   m_TagString: Untagged
@@ -2249,6 +2329,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1795056534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795056531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee9283940727694b86f98af75f48030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 1.59
+  amplitud: 0.1
+  velocidadParpadeo: 1
+  minOpacidad: 0.7
 --- !u!1 &1895014957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,6 +2442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1987802965}
   - component: {fileID: 1987802964}
+  - component: {fileID: 1987802966}
   m_Layer: 0
   m_Name: nube_2
   m_TagString: Untagged
@@ -2423,6 +2520,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987802966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987802963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee9283940727694b86f98af75f48030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 2
+  amplitud: 0.1
+  velocidadParpadeo: 1
+  minOpacidad: 0.7
 --- !u!1 &2062836179
 GameObject:
   m_ObjectHideFlags: 0

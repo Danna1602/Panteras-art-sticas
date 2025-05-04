@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
 
         ActivarBomba();
         AsignarBombaAleatoriamente();
-        
+
     }
 
     private void ReiniciarBomba()
@@ -344,24 +344,35 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    void TerminarJuego(GameObject ganador)
+    IEnumerator TerminarJuegoConVictoria(GameObject ganador)
     {
-        if (juegoTerminado) return;
-
         juegoTerminado = true;
-        StopAllCoroutines();
 
         if (ganador != null)
         {
-            Debug.Log($"¡Juego terminado! Ganador: {ganador.name}");
-        }
-        else
-        {
-            Debug.Log("¡El juego terminó sin ganador!");
+            // Ejecutar animación de victoria
+            var animController1 = ganador.GetComponent<Personaje1_0AnimatorController>();
+            var animController2 = ganador.GetComponent<Personaje2_0AnimatorController>();
+            var animController3 = ganador.GetComponent<Personaje3_0AnimatorController>();
+
+            if (animController1 != null)
+                animController1.EjecutarAnimacionVictoria();
+            else if (animController2 != null)
+                animController2.EjecutarAnimacionVictoria();
+            else if (animController3 != null)
+                animController3.EjecutarAnimacionVictoria();
+
+            // Esperar antes de pausar el juego
+            yield return new WaitForSeconds(3f); // Ajusta este tiempo según tu animación
         }
 
         Time.timeScale = 0f;
-
         FindObjectOfType<GameGUI>().MostrarGanador();
+    }
+
+    void TerminarJuego(GameObject ganador)
+    {
+        if (juegoTerminado) return;
+        StartCoroutine(TerminarJuegoConVictoria(ganador));
     }
 }

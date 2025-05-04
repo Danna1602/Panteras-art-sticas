@@ -61,12 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\BombMovement.cs" />
+    <Compile Include="Assets\scripts\MenuInicio.cs" />
     <Compile Include="Assets\scripts\GameSoundManager.cs" />
     <Compile Include="Assets\scripts\Personaje1_0AnimatorController.cs" />
     <Compile Include="Assets\scripts\BombaAnimatorController.cs" />
+    <Compile Include="Assets\scripts\CPUController.cs" />
     <Compile Include="Assets\scripts\Personaje2_0AnimatorController.cs" />
+    <Compile Include="Assets\scripts\ControladorAudio.cs" />
+    <Compile Include="Assets\scripts\BotonAnimado.cs" />
     <Compile Include="Assets\scripts\CharacterClickHandler.cs" />
     <Compile Include="Assets\scripts\Personaje3_0AnimatorController.cs" />
+    <Compile Include="Assets\scripts\NubeAnimada.cs" />
     <Compile Include="Assets\scripts\GameManager.cs" />
     <Compile Include="Assets\scripts\GameGUI.cs" />
   </ItemGroup>

@@ -1,6 +1,7 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class GameGUI : MonoBehaviour
@@ -9,21 +10,21 @@ public class GameGUI : MonoBehaviour
     public GameManager gameManager;
     public GameObject bomba;
 
-    [Header("Configuraci髇 de Textos")]
+    [Header("Configuraci贸n de Textos")]
     public TMP_FontAsset fontGeneral;
     public TMP_FontAsset fontNombres;
     public TMP_FontAsset fontFase;
     public string[] nombresPersonajes = { "Jugador 1", "Jugador 2", "Jugador 3" };
 
-    [Header("Configuraci髇 de Tiempos")]
+    [Header("Configuraci贸n de Tiempos")]
     public float tiempoFaseNormal = 60f;
     public float tiempoFaseFinal = 30f;
 
-    [Header("Configuraci髇 Visual")]
+    [Header("Configuraci贸n Visual")]
     public Color colorNormal = Color.white;
     public Color colorAlerta = Color.yellow;
     public Color colorPeligro = Color.red;
-    [Range(1f, 5f)] public float tama駉FuenteNombres = 3f;
+    [Range(1f, 5f)] public float tama艅oFuenteNombres = 3f;
     [Range(0.5f, 3f)] public float alturaNombres = 1.5f;
     public Color colorNombreNormal = Color.white;
     public Color colorNombrePortador = Color.red;
@@ -34,7 +35,12 @@ public class GameGUI : MonoBehaviour
     public Vector2 posicionNombres = new Vector2(20f, 20f);
     [Range(0.1f, 2f)] public float grosorFuenteFase = 1f;
 
-    // Elementos privados
+    [Header("Bot贸n de Volver")]
+    public Sprite spriteBoton; // Arrastra tu PNG aqu铆
+    public Vector2 posicionBoton = new Vector2(0, -150);
+    public Vector2 tamanoBoton = new Vector2(200, 100);
+    [Range(0.8f, 1f)] public float escalaAlPresionar = 0.95f;
+
     private TextMeshProUGUI timerText;
     private TextMeshProUGUI phaseText;
     private TextMeshProUGUI winnerText;
@@ -43,17 +49,17 @@ public class GameGUI : MonoBehaviour
     private float tiempoRestanteFase;
     private bool faseFinal = false;
     private float ultimaActualizacionFase;
+    private GameObject botonVolver;
 
     void Start()
     {
         InicializarUI();
         ConfigurarNombresPersonajes();
-        tiempoRestanteFase = tiempoFaseNormal; // Inicia con 60 segundos
+        tiempoRestanteFase = tiempoFaseNormal;
     }
 
     void InicializarUI()
     {
-        // Crear Canvas si no existe
         if (FindObjectOfType<Canvas>() == null)
         {
             GameObject canvasGO = new GameObject("Canvas");
@@ -63,7 +69,6 @@ public class GameGUI : MonoBehaviour
             canvasGO.AddComponent<GraphicRaycaster>();
         }
 
-        // Texto de fase
         phaseText = CrearTextoUI("PhaseText", "FASE NORMAL",
                                posicionFase,
                                28, colorAlerta,
@@ -77,14 +82,12 @@ public class GameGUI : MonoBehaviour
             phaseText.font = fontFase;
         }
 
-        // Temporizador
         timerText = CrearTextoUI("TimerText", tiempoFaseNormal.ToString("F1"),
                                posicionTiempo,
                                36, colorNormal,
                                TextAlignmentOptions.Right,
                                TextAnchor.UpperRight);
 
-        // Texto de ganador
         winnerText = CrearTextoUI("WinnerText", "", Vector2.zero, 48, Color.green,
                                TextAlignmentOptions.Center,
                                TextAnchor.MiddleCenter);
@@ -92,7 +95,7 @@ public class GameGUI : MonoBehaviour
         winnerText.gameObject.SetActive(false);
     }
 
-    TextMeshProUGUI CrearTextoUI(string nombre, string texto, Vector2 offset, int tama駉, Color color,
+    TextMeshProUGUI CrearTextoUI(string nombre, string texto, Vector2 offset, int tama艅o, Color color,
                                TextAlignmentOptions alineacion, TextAnchor ancla, TMP_FontAsset fuente = null)
     {
         GameObject textGO = new GameObject(nombre);
@@ -109,7 +112,7 @@ public class GameGUI : MonoBehaviour
 
         TextMeshProUGUI tmp = textGO.AddComponent<TextMeshProUGUI>();
         tmp.text = texto;
-        tmp.fontSize = tama駉;
+        tmp.fontSize = tama艅o;
         tmp.color = color;
         tmp.alignment = alineacion;
         tmp.font = fuente != null ? fuente : fontGeneral;
@@ -140,7 +143,6 @@ public class GameGUI : MonoBehaviour
             {
                 if (gameManager.personajes[i] != null)
                 {
-                    // Nombre en UI
                     GameObject nombreUI = new GameObject("NombreUI_" + i);
                     nombreUI.transform.SetParent(panelNombres.transform);
 
@@ -153,14 +155,13 @@ public class GameGUI : MonoBehaviour
 
                     nombresUI.Add(tmpUI);
 
-                    // Nombre flotante
                     GameObject nombreFlotante = new GameObject("NombreFlotante_" + i);
                     nombreFlotante.transform.SetParent(gameManager.personajes[i].transform);
                     nombreFlotante.transform.localPosition = new Vector3(0, alturaNombres, 0);
 
                     TextMeshPro tmp = nombreFlotante.AddComponent<TextMeshPro>();
                     tmp.text = i < nombresPersonajes.Length ? nombresPersonajes[i] : "Jugador " + (i + 1);
-                    tmp.fontSize = tama駉FuenteNombres;
+                    tmp.fontSize = tama艅oFuenteNombres;
                     tmp.alignment = TextAlignmentOptions.Center;
                     tmp.font = fontNombres;
                     tmp.color = colorNombreNormal;
@@ -183,19 +184,16 @@ public class GameGUI : MonoBehaviour
 
     void ActualizarTemporizador()
     {
-        // Solo actualiza si hay un portador activo
         GameObject portador = ObtenerPortadorBomba();
         if (portador != null)
         {
             tiempoRestanteFase -= Time.deltaTime;
         }
 
-        // Actualiza la visualizaci髇
         timerText.text = Mathf.Max(tiempoRestanteFase, 0f).ToString("F1");
         timerText.color = tiempoRestanteFase <= 10f ? colorPeligro :
                          (tiempoRestanteFase <= 20f ? colorAlerta : colorNormal);
 
-        // Si se acaba el tiempo
         if (tiempoRestanteFase <= 0f)
         {
             tiempoRestanteFase = 0f;
@@ -204,7 +202,6 @@ public class GameGUI : MonoBehaviour
 
     void ActualizarFase()
     {
-        // Verificar cambio de fase solo ocasionalmente para optimizaci髇
         if (Time.time - ultimaActualizacionFase > 1f)
         {
             int activos = ContarPersonajesActivos();
@@ -310,13 +307,77 @@ public class GameGUI : MonoBehaviour
         {
             int index = System.Array.IndexOf(gameManager.personajes, ganador);
             string nombreGanador = index < nombresPersonajes.Length ? nombresPersonajes[index] : ganador.name;
-            winnerText.text = $"nombreGanador.ToUpper()} GANA!";
+            winnerText.text = $"隆{nombreGanador.ToUpper()} GANA!";
         }
         else
         {
-            winnerText.text = "MPATE!";
+            winnerText.text = "隆EMPATE!";
         }
         winnerText.gameObject.SetActive(true);
+
+        if (botonVolver == null)
+        {
+            CrearBotonVolver();
+        }
+        else
+        {
+            botonVolver.SetActive(true);
+        }
+    }
+
+    void CrearBotonVolver()
+    {
+        // Crear objeto del bot贸n
+        botonVolver = new GameObject("BotonVolver");
+        botonVolver.transform.SetParent(FindObjectOfType<Canvas>().transform);
+
+        // Configurar RectTransform
+        RectTransform rt = botonVolver.AddComponent<RectTransform>();
+        rt.sizeDelta = tamanoBoton;
+        rt.anchorMin = new Vector2(0.5f, 0.5f);
+        rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchoredPosition = posicionBoton;
+
+        // A帽adir Image
+        Image imagenBoton = botonVolver.AddComponent<Image>();
+        imagenBoton.sprite = spriteBoton;
+        imagenBoton.preserveAspect = true;
+
+        // A帽adir Button
+        Button boton = botonVolver.AddComponent<Button>();
+        boton.targetGraphic = imagenBoton;
+
+        // Configurar transici贸n de color
+        ColorBlock colors = boton.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(0.95f, 0.95f, 0.95f);
+        colors.pressedColor = new Color(0.9f, 0.9f, 0.9f);
+        colors.fadeDuration = 0.1f;
+        boton.colors = colors;
+
+        // Animaci贸n al pulsar
+        boton.onClick.AddListener(() => {
+            StartCoroutine(AnimarBoton());
+            VolverAlMenu();
+        });
+    }
+
+    IEnumerator AnimarBoton()
+    {
+        RectTransform rt = botonVolver.GetComponent<RectTransform>();
+        Vector3 escalaOriginal = rt.localScale;
+
+        // Escalar al presionar
+        rt.localScale = escalaOriginal * escalaAlPresionar;
+        yield return new WaitForSecondsRealtime(0.1f);
+        rt.localScale = escalaOriginal;
+    }
+
+    void VolverAlMenu()
+    {
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("PantallaInicialHotBomb");
     }
 
     GameObject ObtenerGanador()

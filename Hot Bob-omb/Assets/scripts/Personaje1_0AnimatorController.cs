@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections;
 
 public class Personaje1_0AnimatorController : MonoBehaviour
@@ -7,16 +7,17 @@ public class Personaje1_0AnimatorController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private GameManager _gameManager;
 
-    // Controladores de AnimaciÛn (ASIGNAR TODOS)
+    // Controladores de Animaci√≥n (ASIGNAR TODOS)
     public RuntimeAnimatorController Posicion1;
     public RuntimeAnimatorController TomarBomba1;
     public RuntimeAnimatorController LanzarBombaIDLE;
     public RuntimeAnimatorController ExplosionPersonaje1;
+    public RuntimeAnimatorController VictoriaPersonaje1; // Nuevo
 
-    // DuraciÛn animaciones (AJUSTAR EN INSPECTOR)
-    [Header("DuraciÛn Animaciones")]
-    public float duracionTomar = 2f;      // DuraciÛn deseada para la animaciÛn de tomar
-    public float duracionLanzar = 0.25f;  // DuraciÛn para lanzar
+    // Duraci√≥n animaciones (AJUSTAR EN INSPECTOR)
+    [Header("Duraci√≥n Animaciones")]
+    public float duracionTomar = 2f;
+    public float duracionLanzar = 0.25f;
     public float duracionExplosion = 1f;
 
     // Estados
@@ -38,7 +39,7 @@ public class Personaje1_0AnimatorController : MonoBehaviour
 
         bool nuevoEstado = (_gameManager.ObtenerPortadorBombaActual() == gameObject);
 
-        // Solo actuar si el estado cambiÛ
+        // Solo actuar si el estado cambi√≥
         if (nuevoEstado != _esPortador)
         {
             _esPortador = nuevoEstado;
@@ -73,7 +74,7 @@ public class Personaje1_0AnimatorController : MonoBehaviour
             _animator.speed = 0.5f; // Valor por defecto si no se encuentra el clip
         }
 
-        _animator.Play("TomarBomba1", 0, 0f); // Nombre simplificado sin "Base Layer."
+        _animator.Play("TomarBomba1", 0, 0f);
         _currentAnimation = StartCoroutine(ResetAfterDelay(duracionTomar));
     }
 
@@ -84,7 +85,7 @@ public class Personaje1_0AnimatorController : MonoBehaviour
         if (_currentAnimation != null) StopCoroutine(_currentAnimation);
 
         _animator.runtimeAnimatorController = LanzarBombaIDLE;
-        _animator.speed = 1f; // Velocidad normal
+        _animator.speed = 1f;
         _animator.Play("LanzarBombaIDLE", 0, 0f);
         _currentAnimation = StartCoroutine(ResetAfterDelay(duracionLanzar));
     }
@@ -109,6 +110,29 @@ public class Personaje1_0AnimatorController : MonoBehaviour
         }
     }
 
+    // Nuevo m√©todo para animaci√≥n de victoria
+    public void EjecutarAnimacionVictoria()
+    {
+        if (_isDead || _animator == null || VictoriaPersonaje1 == null)
+        {
+            Debug.LogError("Faltan componentes para la animaci√≥n de victoria");
+            return;
+        }
+
+        // Detener cualquier animaci√≥n previa
+        if (_currentAnimation != null)
+        {
+            StopCoroutine(_currentAnimation);
+            _currentAnimation = null;
+        }
+
+        // Asignar el controlador y reproducir desde el inicio
+        _animator.runtimeAnimatorController = VictoriaPersonaje1;
+        _animator.speed = 1f;
+        _animator.Play("VictoriaPersonaje1", 0, 0f); // Aseg√∫rate de que el nombre coincide con el estado en el Animator
+    }
+
+
     IEnumerator ResetAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -125,7 +149,7 @@ public class Personaje1_0AnimatorController : MonoBehaviour
     {
         if (_isDead || _animator == null || Posicion1 == null) return;
         _animator.runtimeAnimatorController = Posicion1;
-        _animator.speed = 1f; // Restablecer velocidad normal
+        _animator.speed = 1f;
         _animator.Play("Posicion1", 0, 0f);
     }
 
