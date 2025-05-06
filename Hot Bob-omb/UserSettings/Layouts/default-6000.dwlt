@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 150}
   m_MaxSize: {x: 32384, y: 24288}
   vertical: 0
-  controlID: 153
+  controlID: 66
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -437,7 +437,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7c22ffff
+      m_ExpandedIDs: 5010ffffc211ffff5814ffff7414ffff7c22ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1757,7 +1757,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 50580
+  m_LastSelectedObjectID: 69380
 --- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1805,7 +1805,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/sonidos
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1815,15 +1815,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/sonidos
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Level 7\Documents\GitHub\Panteras-art-sticas\Hot Bob-omb
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 52eb0000
-    m_LastClickedID: 60242
+    m_SelectedIDs: be000100
+    m_LastClickedID: 65726
     m_ExpandedIDs: 0000000052eb000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1881,7 +1881,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000d80a01004a0b0100700b0100960b0100aaca000028f10000f0ca000052ae000050ae000074ad000056bb000062bb0000b4af00002add00000eb9000084b0000082b00000d0af00001cea00000000000038b30000d2b20000c4c400001ab30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

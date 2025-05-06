@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7179987de586de243acb1839685af909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sonidoClick: {fileID: 8300000, guid: 6bf5b562b020fdb4ba7325c27c3e2185, type: 3}
+  sonidoClick: {fileID: 8300000, guid: e0af5c4c598f06e448bcb55aaab21c79, type: 3}
   volumen: 1
   delayAccion: 0.2
 --- !u!4 &123702045
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   escalaPresionado: 0.9
   velocidadAnim: 10
-  sonidoClick: {fileID: 8300000, guid: 6bf5b562b020fdb4ba7325c27c3e2185, type: 3}
+  sonidoClick: {fileID: 8300000, guid: e0af5c4c598f06e448bcb55aaab21c79, type: 3}
 --- !u!82 &123702047
 AudioSource:
   m_ObjectHideFlags: 0
